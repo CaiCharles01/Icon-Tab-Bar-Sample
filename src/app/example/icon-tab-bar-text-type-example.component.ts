@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IconTabBarComponent, TabConfig } from '@fundamental-ngx/platform/icon-tab-bar';
 import { cloneDeep } from 'lodash-es';
-import { longTextTypeConfig, textTypeConfig } from '../config-for-examples/text-type.config';
+import { longTextTypeConfig, textTypeConfig } from '../config-for-examples/long-icon-type-config';
 
 @Component({
     selector: 'fd-icon-tab-bar-text-type-example',
-    templateUrl: './platform-icon-tab-bar-text-type-example.component.html',
+    templateUrl: './icon-tab-bar-text-type-example.component.html',
     standalone: true,
     imports: [IconTabBarComponent]
 })
