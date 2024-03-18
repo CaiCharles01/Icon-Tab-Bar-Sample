@@ -1,61 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IconTabBarComponent, TabConfig } from '@fundamental-ngx/platform/icon-tab-bar';
-import { cloneDeep } from 'lodash-es';
-import { longTextTypeConfig, textTypeConfig } from '../config-for-examples/long-icon-type-config';
+import {Component} from '@angular/core';
+
+import {SeTabComponent} from '../se-tab/se-tab.component';
 
 @Component({
     selector: 'fd-icon-tab-bar-text-type-example',
     templateUrl: './icon-tab-bar-text-type-example.component.html',
     standalone: true,
-    imports: [IconTabBarComponent]
+    imports: [SeTabComponent]
 })
-export class PlatformIconTabBarTextTypeExampleComponent implements OnInit {
-    @Input()
-    textTypeLayoutMode: 'row' | 'column' = 'row';
-
-    @Input()
-    enableTabReordering = false;
-
-    @Input()
-    withOverflowExample = false;
-
-    @Input()
-    nested = false;
-
-    items: TabConfig[];
-
-    ngOnInit(): void {
-        this.items = this.withOverflowExample ? cloneDeep(longTextTypeConfig) : cloneDeep(textTypeConfig);
-        if (this.nested) {
-            this.items[3].subItems = [
-                {
-                    label: 'Item 0',
-                    counter: null,
-                    color: 'critical',
-                    subItems: [
-                        {
-                            label: 'Item 0.1',
-                            counter: null,
-                            color: null
-                        },
-                        {
-                            label: 'Item 0.2',
-                            counter: null,
-                            color: null
-                        }
-                    ]
-                },
-                {
-                    label: 'Item 1',
-                    counter: null,
-                    color: null
-                },
-                {
-                    label: 'Item 2',
-                    counter: null,
-                    color: null
-                }
-            ];
-        }
-    }
+export class PlatformIconTabBarTextTypeExampleComponent {
 }
