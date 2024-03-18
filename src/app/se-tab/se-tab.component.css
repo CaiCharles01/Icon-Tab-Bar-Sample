@@ -2,6 +2,10 @@
  * se-tab 内有两个元素，分别是 se-tab-bar-wrapper 和 se-tab-bar-more-wrapper
  * 让这两个元素处于同一行
  */
+.se-tab-bar {
+    height: 44px;
+}
+
 .se-tab-bar-wrapper,
 .se-tab-bar-more-wrapper {
     display: inline-block;

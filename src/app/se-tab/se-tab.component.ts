@@ -26,6 +26,8 @@ export class SeTabComponent implements OnInit, OnChanges {
   @Input()
   numTabsDisplayed: number = 0;
 
+  public selectedTab: any;
+
   items: TabConfig[] = [];
 
   extraItems: TabConfig[];
@@ -44,5 +46,9 @@ export class SeTabComponent implements OnInit, OnChanges {
         this.items = cloneDeep(textTypeConfig);
       }
     }
+  }
+
+  onTabSelect(event: any): void {
+    this.selectedTab = event;
   }
 }

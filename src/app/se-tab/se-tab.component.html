@@ -1,9 +1,14 @@
 <div class="se-tab">
-    <div class="se-tab-bar-wrapper">
-        <fdp-icon-tab-bar [tabsConfig]="items" [layoutMode]="textTypeLayoutMode"
-            [enableTabReordering]="enableTabReordering"></fdp-icon-tab-bar>
-    </div>
-    <div class="se-tab-bar-more-wrapper">
-        <fdp-text-type-popover [extraTabs]="extraItems" [isExtraItemsMode]="true"></fdp-text-type-popover>
+    <div class="se-tab-bar">
+        <div class="se-tab-bar-wrapper">
+            <fdp-icon-tab-bar [tabsConfig]="items" [layoutMode]="textTypeLayoutMode"
+                [enableTabReordering]="enableTabReordering" (iconTabSelected)="onTabSelect($event)"></fdp-icon-tab-bar>
+        </div>
+        <div class="se-tab-bar-more-wrapper">
+            <fdp-text-type-popover [extraTabs]="extraItems" [isExtraItemsMode]="true"></fdp-text-type-popover>
+        </div>
+        </div>
+        <div class="se-tab-content-wrapper">
+            {{ selectedTab?.label }}
     </div>
 </div>
