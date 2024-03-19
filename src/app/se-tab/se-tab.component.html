@@ -1,14 +1,17 @@
 <div class="se-tab">
     <div class="se-tab-bar">
         <div class="se-tab-bar-wrapper">
-            <fdp-icon-tab-bar [tabsConfig]="items" [layoutMode]="textTypeLayoutMode"
+            <fdp-icon-tab-bar #fdpIconTabBar [tabsConfig]="items" [layoutMode]="textTypeLayoutMode"
                 [enableTabReordering]="enableTabReordering" (iconTabSelected)="onTabSelect($event)"></fdp-icon-tab-bar>
         </div>
+        @if (extraItems.length > 0) {
         <div class="se-tab-bar-more-wrapper">
-            <fdp-text-type-popover [extraTabs]="extraItems" [isExtraItemsMode]="true"></fdp-text-type-popover>
+            <fdp-text-type-popover [extraTabs]="extraItems" [isExtraItemsMode]="true" [isRtl]="fdpIconTabBar._rtl$()"
+                (selectedExtraItem)="onMoreTabsClick($event)"></fdp-text-type-popover>
         </div>
-        </div>
-        <div class="se-tab-content-wrapper">
-            {{ selectedTab?.label }}
+        }
+    </div>
+    <div class="se-tab-content-wrapper">
+        {{ selectedTab?.label }}
     </div>
 </div>
