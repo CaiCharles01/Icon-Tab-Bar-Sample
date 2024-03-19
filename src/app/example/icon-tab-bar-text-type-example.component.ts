@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {SeTabComponent} from '../se-tab/se-tab.component';
+import {tabLists} from '../config-for-examples/long-icon-type-config';
 
 @Component({
     selector: 'fd-icon-tab-bar-text-type-example',
@@ -9,4 +10,5 @@ import {SeTabComponent} from '../se-tab/se-tab.component';
     imports: [SeTabComponent]
 })
 export class PlatformIconTabBarTextTypeExampleComponent {
+    tabLists = tabLists;
 }

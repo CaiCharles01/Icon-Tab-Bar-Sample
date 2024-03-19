@@ -1,17 +1,25 @@
 <div class="se-tab">
     <div class="se-tab-bar">
         <div class="se-tab-bar-wrapper">
-            <fdp-icon-tab-bar #fdpIconTabBar [tabsConfig]="items" [layoutMode]="textTypeLayoutMode"
-                [enableTabReordering]="enableTabReordering" (iconTabSelected)="onTabSelect($event)"></fdp-icon-tab-bar>
+            <fdp-icon-tab-bar #fdpIconTabBar [layoutMode]="textTypeLayoutMode" [enableTabReordering]="enableTabReordering"
+                (iconTabSelected)="onTabSelect($event)">
+                @for (tab of tabList; track tab.id; let idx = $index) {
+                <fdp-icon-tab-bar-tab [label]="tab.title" [color]="tab.hasErrors? 'negative': null" [badge]="tab.hasErrors"
+                    [active]="tab.id === selectedTab.id" [id]="tab.id">{{ tab.id === selectedTab.id
+                    }}</fdp-icon-tab-bar-tab>
+                }
+
+            </fdp-icon-tab-bar>
         </div>
-        @if (extraItems.length > 0) {
+        @if (extraTabs.length > 0) {
         <div class="se-tab-bar-more-wrapper">
-            <fdp-text-type-popover [extraTabs]="extraItems" [isExtraItemsMode]="true" [isRtl]="fdpIconTabBar._rtl$()"
+            <fdp-text-type-popover [extraTabs]="extraTabs" [isExtraItemsMode]="true" [isRtl]="fdpIconTabBar._rtl$()"
                 (selectedExtraItem)="onMoreTabsClick($event)"></fdp-text-type-popover>
         </div>
         }
     </div>
     <div class="se-tab-content-wrapper">
+        {{ selectedTab?.id }}
         {{ selectedTab?.label }}
     </div>
 </div>

@@ -10,3 +10,7 @@ se-tab 内有两个元素，分别是 se-tab-bar-wrapper 和 se-tab-bar-more-wra
 .se-tab-bar-more-wrapper {
     display: inline-block;
 }
+.se-tabset__tab--disabled {
+    cursor: not-allowed;
+    color: #ccc;
+}
