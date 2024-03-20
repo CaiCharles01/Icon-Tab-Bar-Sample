@@ -1,1 +1,5 @@
-<app-se-tab [numTabsDisplayed]="4" [tabList]="tabLists"></app-se-tab>
+<app-se-tab [tabList]="tabLists"></app-se-tab>
+<form (submit)="handleSubmit(form.value)" #form="ngForm">
+    <input type="text" [(ngModel)]="inputValue" name="inputValue">
+    <button type="submit">Submit</button>
+</form>

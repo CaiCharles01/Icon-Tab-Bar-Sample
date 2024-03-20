@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {IconTabBarComponent, IconTabBarItem, TabConfig, TextTypePopoverComponent, IconTabBarTabComponent} from '@fundamental-ngx/platform/icon-tab-bar';
-import {cloneDeep} from 'lodash-es';
+import {cloneDeep, isEqual} from 'lodash-es';
 import {AsyncPipe, JsonPipe, NgClass} from '@angular/common';
 import {Tab} from '../config-for-examples/tab';
 
@@ -12,7 +12,7 @@ import {Tab} from '../config-for-examples/tab';
   templateUrl: './se-tab.component.html',
   styleUrl: './se-tab.component.css'
 })
-export class SeTabComponent implements OnInit, OnChanges {
+export class SeTabComponent implements OnInit, DoCheck {
   @ViewChild('fdpIconTabBar') _fdpIconTabBar: IconTabBarComponent;
 
   @Input()
@@ -28,9 +28,6 @@ export class SeTabComponent implements OnInit, OnChanges {
   nested = false;
 
   @Input()
-  numTabsDisplayed: number = 0;
-
-  @Input()
   tabList: Tab[] = [];
 
   public selectedTab: any;
@@ -39,28 +36,23 @@ export class SeTabComponent implements OnInit, OnChanges {
 
   extraTabs: IconTabBarItem[];
 
+  private previousHasErrors: boolean[];
+
   constructor(private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.selectedTab = this.tabList[0];
+    this.generateTabConfig();
+    this.previousHasErrors = this.tabList.map((tab) => tab.hasErrors);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['numTabsDisplayed']) {
-      if (this.numTabsDisplayed) {
-        this.extraTabs = this.tabList.slice(this.numTabsDisplayed).map((tab, index, _tabs) => {
-          return {
-            ...tab,
-            label: tab.title,
-            index: index,
-            uId: tab.id,
-            flatIndex: index,
-            cssClasses: [],
-          };
-        });
-        this.tabList = this.tabList.slice(0, this.numTabsDisplayed);
-      }
+  ngDoCheck(): void {
+    const currentHasErrors = this.tabList.map((tab) => tab.hasErrors);
+    if (!isEqual(this.previousHasErrors, currentHasErrors)) {
+      this.generateTabConfig();
+      this.cdr.detectChanges();
+      this.previousHasErrors = cloneDeep(currentHasErrors);
     }
   }
 
@@ -82,5 +74,17 @@ export class SeTabComponent implements OnInit, OnChanges {
     };
     this.tabList.push(event);
     this.selectedTab = event;
+  }
+
+  private generateTabConfig(): void {
+    this.items = this.tabList.map((tab) => {
+      return {
+        id: tab.id,
+        label: tab.title,
+        color: tab.hasErrors ? 'negative' : null,
+        active: this.selectedTab?.id === tab.id,
+        badge: tab.hasErrors
+      };
+    })
   }
 }
